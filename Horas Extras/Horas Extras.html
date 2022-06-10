@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <meta charset = "utf-8">
+    <title>Cálculo de Horas - Trancid</title>
+</head>
+<body>
+    <h1>Cálculo de Horas - Trancid</h1>
+    <script>
+        //variáveis úteis-----------------------
+        var x1 = prompt("Digite a data inicial")
+        var x2 = prompt("Digite a data final")
+        var diaInicial
+        var mesInicial
+        var anoInicial
+        var diaFinal
+        var mesFinal
+        var AnoFinal
+        var quantidadeDeDias
+        var horas
+        var minutos
+        var horasDosMinutos
+        var descontoSabado
+        //--------------------------------------
+        //verifica se data está mal digitada----
+        if(x1.length != 10 || x2.length != 10){
+            document.write("Alguma data foi digitada de forma errada")
+        }
+        //se estiver correta printa------------
+        else{
+            document.write("Data inicial: " + x1 + "<br>")
+            document.write("Data inicial: " + x2 + "<br>")
+        
+            //transforma valores lidos em data
+            //formato: DD/MM/AAAA
+            diaInicial = parseInt(x1.substr(0,2))
+            //document.write(diaInicial)
+            mesInicial = parseInt(x1.substr(4,2))
+            //document.write(mesInicial)
+            anoInicial = parseInt(x1.substr(7,4))
+            //document.write(diaInicial)
+        
+            diaFinal = parseInt(x2.substr(0,2))
+            mesFinal = parseInt(x2.substr(4,2))
+            AnoFinal = parseInt(x2.substr(7,4))
+
+            document.write("Quantidade de dias entre data 1 e data 2: ")
+            
+            var data1 = new Date(anoInicial,mesInicial,diaInicial);
+            var data2 = new Date(AnoFinal,mesFinal,diaFinal);
+
+            quantidadeDeDias = (Math.abs(data1.getTime() - data2.getTime())) 
+            quantidadeDeDias = (quantidadeDeDias / (1*24*60*60*1000)) + 1
+            document.write(quantidadeDeDias)
+            descontoSabado = Math.floor(quantidadeDeDias/7)
+            //document.write("<br>" + descontoSabado)
+            if(descontoSabado == 0){
+                horas = quantidadeDeDias * 2
+                minutos = quantidadeDeDias * 40
+                horasDosMinutos = Math.floor(minutos / 60)
+                
+                horas = horas + horasDosMinutos
+                minutos = minutos - 60*(horasDosMinutos)
+            }
+            else{
+                descontoSabado = Math.floor(quantidadeDeDias / 7)
+                horas = quantidadeDeDias * 2 - (descontoSabado * 1)
+                minutos = quantidadeDeDias * 40 - (descontoSabado * 30)
+                horasDosMinutos = Math.floor(minutos/60)
+                
+                horas = horas + horasDosMinutos
+                minutos = minutos - 60*(horasDosMinutos) 
+            }
+
+            document.write("<br> Horas: " + horas + "<br>")
+            document.write("Minutos: " + minutos)
+        } 
+    </script>
+</body>
